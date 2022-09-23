@@ -10,6 +10,7 @@ public class PokemonMain extends ApplicationAdapter {
 	Texture img;
 	int test;
 	int test2;
+	int test3;
 	
 	@Override
 	public void create () {
