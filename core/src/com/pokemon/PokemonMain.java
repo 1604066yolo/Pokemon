@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class PokemonMain extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
+	int test;
 	
 	@Override
 	public void create () {
