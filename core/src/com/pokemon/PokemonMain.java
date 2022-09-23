@@ -9,6 +9,7 @@ public class PokemonMain extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
 	int test;
+	int test2;
 	
 	@Override
 	public void create () {
