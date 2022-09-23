@@ -11,6 +11,7 @@ public class PokemonMain extends ApplicationAdapter {
 	int test;
 	int test2;
 	int test3;
+	int test4;
 	
 	@Override
 	public void create () {
