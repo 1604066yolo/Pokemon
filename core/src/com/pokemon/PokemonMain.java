@@ -1,35 +1,26 @@
 package com.pokemon;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.Screen;
 
 public class PokemonMain extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	int test;
-	int test2;
-	int test3;
-	int test4;
+	
+	public static final float DELTA = 1 / 60f;
+	
+	Screen screen = new FirstScreen();
 	
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		screen.show();
 	}
 
 	@Override
 	public void render () {
-		ScreenUtils.clear(1, 0, 0, 1);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+		screen.render(DELTA);
 	}
 	
 	@Override
 	public void dispose () {
-		batch.dispose();
-		img.dispose();
+		screen.dispose();
 	}
 }

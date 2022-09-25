@@ -8,8 +8,10 @@ import com.pokemon.PokemonMain;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-		config.setForegroundFPS(60);
 		config.setTitle("Pokemon");
+		config.setForegroundFPS(60);
+		config.setWindowedMode(800, 720);
+		config.useVsync(true);
 		new Lwjgl3Application(new PokemonMain(), config);
 	}
 }
