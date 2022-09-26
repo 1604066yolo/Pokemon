@@ -2,6 +2,7 @@ package com.pokemon;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Screen;
+import com.pokemon.screens.FirstScreen;
 
 public class PokemonMain extends ApplicationAdapter {
 	
