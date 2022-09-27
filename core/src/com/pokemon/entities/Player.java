@@ -1,8 +1,8 @@
 package com.pokemon.entities;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -16,8 +16,8 @@ public class Player {
 		STILL
 	}
 	
-	public static final float ANIMATION_FRAME_TIME = 1 / 4f;
-	public static final int PLAYER_SPEED = 10;
+	private static final float ANIMATION_FRAME_TIME = 1 / 4f;
+	private static final int PLAYER_SPEED = 10;
 	
 	private Animation<TextureRegion> left;
 	private Animation<TextureRegion> right;
@@ -27,16 +27,9 @@ public class Player {
 	
 	private int x, y;
 	private WalkState walkState;
+	private TextureRegion currentWalkFrame;
 	
 	public Player() {
-		this.initAnimations();
-		
-		this.x = 100;
-		this.y = 100;
-		this.walkState = WalkState.STILL;
-	}
-	
-	private void initAnimations() {
 		TextureAtlas charset = new TextureAtlas(Gdx.files.internal("characters.atlas"));
 		
 		up = new Animation<TextureRegion>(ANIMATION_FRAME_TIME, charset.findRegions("up"));
@@ -53,52 +46,47 @@ public class Player {
 		
 		still = new Animation<TextureRegion>(ANIMATION_FRAME_TIME, charset.findRegions("still"));
 		still.setFrameDuration(ANIMATION_FRAME_TIME);
+		
+		this.x = 100;
+		this.y = 100;
+		this.walkState = WalkState.STILL;
+		this.currentWalkFrame = still.getKeyFrame(0, true);
 	}
 	
-	public TextureRegion animateWalk(float elapsedTime) {
-		TextureRegion currentFrame;
-		switch (walkState) {
-		case LEFT:
-			currentFrame = left.getKeyFrame(elapsedTime, true);
-			break;
-		case RIGHT:
-			currentFrame = right.getKeyFrame(elapsedTime, true);
-			break;
-		case UP:
-			currentFrame = up.getKeyFrame(elapsedTime, true);
-			break;
-		case DOWN:
-			currentFrame = down.getKeyFrame(elapsedTime, true);
-			break;
-		default:
-			currentFrame = still.getKeyFrame(elapsedTime, true);
-			break;
-		}
-		return currentFrame;
-	}
-	
-	public void move() {
+	public void update(float elapsedTime) {
 		int velx = 0, vely = 0;
-		
-		if (walkState == WalkState.LEFT) {
-			velx -= PLAYER_SPEED;
+
+		switch (walkState) {
+			case LEFT:
+				currentWalkFrame = left.getKeyFrame(elapsedTime, true);
+				velx -= PLAYER_SPEED;
+				break;
+			case RIGHT:
+				currentWalkFrame = right.getKeyFrame(elapsedTime, true);
+				velx += PLAYER_SPEED;
+				break;
+			case UP:
+				currentWalkFrame = up.getKeyFrame(elapsedTime, true);
+				vely += PLAYER_SPEED;
+				break;
+			case DOWN:
+				currentWalkFrame = down.getKeyFrame(elapsedTime, true);
+				vely -= PLAYER_SPEED;
+				break;
+			default:
+				currentWalkFrame = still.getKeyFrame(elapsedTime, true);
+				break;
 		}
-		else if (walkState == WalkState.RIGHT) {
-			velx += PLAYER_SPEED;
-		}
-		else if (walkState == WalkState.UP) {
-			vely += PLAYER_SPEED;
-		}
-		else if (walkState == WalkState.DOWN) {
-			vely -= PLAYER_SPEED;
-		}
-		
 		this.x += velx;
 		this.y += vely;
 	}
 	
 	public void setWalkState(WalkState walkState) {
 		this.walkState = walkState;
+	}
+	
+	public TextureRegion getCurrentWalkFrame() {
+		return currentWalkFrame;
 	}
 	
 	public int getX() {
