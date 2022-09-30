@@ -34,7 +34,7 @@ public class FirstScreen implements Screen {
 		player = PokemonMain.getPlayer();
 		route01 = new Background("route01", 8, 23, 320, 576);
 		
-		collisionColor = new Color(255, 216, 0, 255);
+		collisionColor = new Color(255f / 255f, 216f / 255f, 0f / 255f, 255f / 255f);
 		
 		playerInputProcessor = new PlayerInputProcessor(player);
 	}
@@ -91,8 +91,10 @@ public class FirstScreen implements Screen {
 			if (!route01.getCollision().getTexture().getTextureData().isPrepared())
 				route01.getCollision().getTexture().getTextureData().prepare();
 			Pixmap pixmap = route01.getCollision().getTexture().getTextureData().consumePixmap();
-			Color color = new Color(pixmap.getPixel(player.getX() / 5, player.getY()));
-			if (color.r == collisionColor.r && color.g == collisionColor.g && color.b == collisionColor.b) {
+			Color color = new Color(pixmap.getPixel(player.getX() / 5 + 8, route01.getImage().getRegionHeight() - player.getY() / 5));
+			if ((int) (color.r*255) == (int) (collisionColor.r*255) && 
+					(int) (color.g*255) == (int) (collisionColor.g*255) && 
+					(int) (color.b*255) == (int) (collisionColor.b*255)) {
 				return false;
 			}
 		}

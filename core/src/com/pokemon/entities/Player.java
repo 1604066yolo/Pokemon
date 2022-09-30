@@ -107,7 +107,6 @@ public class Player implements Entity{
 
 	@Override
 	public void update(float elapsedTime) {
-		// TODO Auto-generated method stub
 		
 	}
 	
