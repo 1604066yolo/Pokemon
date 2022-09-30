@@ -14,6 +14,10 @@ public class YoungsterJoey extends Trainer{
 		// TODO Auto-generated constructor stub
 	}
 
-
+	@Override
+	public void update(float elapsedTime, boolean movable) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

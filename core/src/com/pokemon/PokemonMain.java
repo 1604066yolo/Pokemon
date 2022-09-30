@@ -1,12 +1,10 @@
 package com.pokemon;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.pokemon.entities.Player;
 import com.pokemon.screens.FirstScreen;
 import com.pokemon.screens.MainMenuScreen;
-import com.pokemon.tools.PlayerInputProcessor;
 
 public class PokemonMain extends ApplicationAdapter {
 	

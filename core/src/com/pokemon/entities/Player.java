@@ -54,9 +54,12 @@ public class Player implements Entity{
 	}
 	
 	@Override
-	public void update(float elapsedTime) {
+	public void update(float elapsedTime, boolean movable) {
 		int velx = 0, vely = 0;
-
+		
+		if (!movable)
+			return;
+		
 		switch (walkState) {
 			case LEFT:
 				currentWalkFrame = left.getKeyFrame(elapsedTime, true);
@@ -96,6 +99,16 @@ public class Player implements Entity{
 	
 	public int getY() {
 		return this.y;
+	}
+	
+	public WalkState getWalkState() {
+		return walkState;
+	}
+
+	@Override
+	public void update(float elapsedTime) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
