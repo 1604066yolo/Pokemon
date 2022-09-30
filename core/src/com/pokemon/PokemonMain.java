@@ -3,6 +3,7 @@ package com.pokemon;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.pokemon.entities.Player;
 import com.pokemon.screens.FirstScreen;
 import com.pokemon.screens.MainMenuScreen;
 import com.pokemon.tools.PlayerInputProcessor;
@@ -13,7 +14,7 @@ public class PokemonMain extends ApplicationAdapter {
 	
 	private static Screen mainGameScreen;
 	private static Screen mainMenuScreen;
-	
+	private static Player player;
 	
 	private static ScreenType currentScreen;
 	
@@ -43,9 +44,9 @@ public class PokemonMain extends ApplicationAdapter {
 	
 	@Override
 	public void create () {
+		player= new Player();
 		mainGameScreen = new FirstScreen();
 		mainMenuScreen = new MainMenuScreen();
-		
 		currentScreen = ScreenType.MainGame;
 	}
 
@@ -68,4 +69,9 @@ public class PokemonMain extends ApplicationAdapter {
 	public void dispose () {
 		mainGameScreen.dispose();
 	}
+	
+	public static Player getPlayer() {
+		return player;
+	}
+	
 }

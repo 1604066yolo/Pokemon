@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class Player {
+public class Player implements Entity{
 	
 	public enum WalkState {
 		LEFT,
@@ -53,6 +53,7 @@ public class Player {
 		this.currentWalkFrame = still.getKeyFrame(0, true);
 	}
 	
+	@Override
 	public void update(float elapsedTime) {
 		int velx = 0, vely = 0;
 
