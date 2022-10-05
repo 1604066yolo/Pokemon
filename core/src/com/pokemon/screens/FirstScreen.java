@@ -59,7 +59,7 @@ public class FirstScreen implements Screen {
 		
 		camera.position.set(calculatePlayerCameraPosition(camera, route01));
 		
-		System.out.println("X: " + player.getPosition().x + "   Y: " + player.getPosition().y);
+		// System.out.println("X: " + player.getPosition().x + "   Y: " + player.getPosition().y);
 		
 		batch.begin();
 		
@@ -92,14 +92,33 @@ public class FirstScreen implements Screen {
 		if (!route01.getCollision().getTexture().getTextureData().isPrepared())
 			route01.getCollision().getTexture().getTextureData().prepare();
 		Pixmap pixmap = route01.getCollision().getTexture().getTextureData().consumePixmap();
-		
+		Color color1, color2;
 		if (player.getWalkState() == Player.WalkState.LEFT) {
-			Color color = new Color(pixmap.getPixel(player.getBottomLeft().x + 16, route01.getImage().getRegionHeight() - player.getBottomLeft().x));
-			if ((int) (color.r*255) == (int) (collisionColor.r*255) && 
-					(int) (color.g*255) == (int) (collisionColor.g*255) && 
-					(int) (color.b*255) == (int) (collisionColor.b*255)) {
-				return false;
-			}
+			color1 = new Color(pixmap.getPixel(player.getBottomLeft().x + 8, route01.getImage().getRegionHeight() - player.getBottomLeft().y + 22));
+			color2 = new Color(pixmap.getPixel(player.getTopLeft().x + 8, route01.getImage().getRegionHeight() - player.getTopLeft().y + 22));
+		}
+		else if (player.getWalkState() == Player.WalkState.RIGHT) {
+			color1 = new Color(pixmap.getPixel(player.getBottomRight().x + 8, route01.getImage().getRegionHeight() - player.getBottomRight().y + 22));
+			color2 = new Color(pixmap.getPixel(player.getTopRight().x + 8, route01.getImage().getRegionHeight() - player.getTopRight().y + 22));
+		}
+		else if (player.getWalkState() == Player.WalkState.UP) {
+			color1 = new Color(pixmap.getPixel(player.getTopRight().x + 8, route01.getImage().getRegionHeight() - player.getTopRight().y + 22));
+			color2 = new Color(pixmap.getPixel(player.getTopLeft().x + 8, route01.getImage().getRegionHeight() - player.getTopLeft().y + 22));
+		}
+		else if (player.getWalkState() == Player.WalkState.DOWN) {
+			color1 = new Color(pixmap.getPixel(player.getBottomRight().x + 8, route01.getImage().getRegionHeight() - player.getBottomRight().y + 22));
+			color2 = new Color(pixmap.getPixel(player.getBottomLeft().x + 8, route01.getImage().getRegionHeight() - player.getBottomLeft().y + 22));
+		}
+		else
+			return true;
+		
+		if ((int) (color1.r*255) == (int) (collisionColor.r*255) && 
+				(int) (color1.g*255) == (int) (collisionColor.g*255) && 
+				(int) (color1.b*255) == (int) (collisionColor.b*255) ||
+				(int) (color2.r*255) == (int) (collisionColor.r*255) && 
+				(int) (color2.g*255) == (int) (collisionColor.g*255) && 
+				(int) (color2.b*255) == (int) (collisionColor.b*255)) {
+			return false;
 		}
 		
 		return true;
