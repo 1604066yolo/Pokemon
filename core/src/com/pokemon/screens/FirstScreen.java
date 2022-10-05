@@ -100,15 +100,6 @@ public class FirstScreen implements Screen {
 			}
 		}
 		
-		/*if (player.getWalkState() == Player.WalkState.RIGHT) {
-			Color color = new Color(pixmap.getPixel(player.getX() / 5 + 8, route01.getImage().getRegionHeight() - player.getY() / 5));
-			if ((int) (color.r*255) == (int) (collisionColor.r*255) && 
-					(int) (color.g*255) == (int) (collisionColor.g*255) && 
-					(int) (color.b*255) == (int) (collisionColor.b*255)) {
-				return false;
-			}
-		}*/
-		
 		return true;
 	}
 	
