@@ -36,11 +36,6 @@ public class Trainer implements Entity{
 		Player player = PokemonMain.getPlayer();	
 	}
 
-	@Override
-	public void update(float elapsedTime, boolean movable) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	public TextureRegion getTrainerImage() {
 		return trainerInMap;
