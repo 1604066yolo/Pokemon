@@ -1,16 +1,22 @@
 package com.pokemon.screens;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.pokemon.PokemonMain;
 import com.pokemon.entities.Player;
+import com.pokemon.entities.Pokemon;
+import com.pokemon.entities.Trainer;
 import com.pokemon.tools.Background;
 import com.pokemon.tools.PlayerInputProcessor;
 
@@ -21,6 +27,7 @@ public class FirstScreen implements Screen {
 	private float elapsedTime;
 	private Player player;
 	private Background route01;
+	private Trainer trainer= createTrainerInMap();
 
 	private static Color collisionColor;
 	
@@ -65,6 +72,7 @@ public class FirstScreen implements Screen {
 		batch.draw(route01.getImage(), 0, 0, route01.getScaledWidth(), route01.getScaledHeight());
 		batch.draw(currentPlayerFrame, player.getX() * 5, player.getY() * 5, 
 				currentPlayerFrame.getRegionWidth() * 5f, currentPlayerFrame.getRegionHeight() * 5f);
+		batch.draw(trainer.getTrainerImage(), trainer.getX()*5, trainer.getY()*5, 16*5, 16*5);
 		
 		batch.end();
 		
@@ -130,6 +138,17 @@ public class FirstScreen implements Screen {
 	@Override
 	public void dispose() {
 		batch.dispose();
+	}
+	
+	public Trainer createTrainerInMap() {
+		List <Pokemon> pokemons= new ArrayList<Pokemon>();
+		pokemons.add(new Pokemon("Pikachu"));
+		Trainer t= new Trainer("Chinese Lady", pokemons, 
+				new TextureRegion(new Texture(Gdx.files.internal("characters.png")), 9, 136, 16, 16),
+				new TextureRegion(new Texture(Gdx.files.internal("characters.png")), 9, 136, 16, 16),
+				200,200
+				);
+		return t;
 	}
 
 }

@@ -21,6 +21,7 @@ public class Trainer implements Entity{
 		this.trainerInMap= trainerInMap;
 		this.x= x;
 		this.y= y;
+		
 	}
 	
 	public List<Pokemon> getTrainersPokemon() {
@@ -39,6 +40,18 @@ public class Trainer implements Entity{
 	public void update(float elapsedTime, boolean movable) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public TextureRegion getTrainerImage() {
+		return trainerInMap;
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
 	}
 
 	
