@@ -60,17 +60,19 @@ public class FirstScreen implements Screen {
 		Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		
-		player.update(elapsedTime, calculatePlayerCollision());
+		player.setCanMove(calculatePlayerCollision());
+		player.update(elapsedTime);
 		TextureRegion currentPlayerFrame = player.getCurrentWalkFrame();
 		
 		camera.position.set(calculatePlayerCameraPosition(camera, route01));
 		
+		System.out.println("X: " + player.getPosition().x + "   Y: " + player.getPosition().y);
+		
 		batch.begin();
 		
 		
-		batch.draw(route01.getImage(), 0, 0, route01.getScaledWidth(), route01.getScaledHeight());
-		batch.draw(currentPlayerFrame, player.getX() * 5, player.getY() * 5, 
+		batch.draw(route01.getImage(), 0, 0, 5 * route01.getWidth(), 5 * route01.getHeight());
+		batch.draw(currentPlayerFrame, player.getPosition().x * 5, player.getPosition().y * 5, 
 				currentPlayerFrame.getRegionWidth() * 5f, currentPlayerFrame.getRegionHeight() * 5f);
 		batch.draw(trainer.getTrainerImage(), trainer.getX()*5, trainer.getY()*5, 16*5, 16*5);
 		
@@ -81,15 +83,15 @@ public class FirstScreen implements Screen {
 	private Vector3 calculatePlayerCameraPosition(OrthographicCamera camera, Background bg) {
 		Vector3 cameraPosition = camera.position;
 		boolean lockX = false, lockY = false;
-		if (player.getX() * 5 < 360 || player.getX() * 5 + 440 > bg.getScaledWidth())
+		if (player.getPosition().x * 5 < 360 || player.getPosition().x * 5 + 440 > 5 * bg.getWidth())
 			lockX = true;
-		if (player.getY() * 5 < 320 || player.getY() * 5 + 400 > bg.getScaledHeight())
+		if (player.getPosition().y * 5 < 320 || player.getPosition().y * 5 + 400 > 5 * bg.getHeight())
 			lockY = true;
 		
 		if (!lockX)
-			cameraPosition.x = player.getX() * 5 + 40;
+			cameraPosition.x = player.getPosition().x * 5 + 40;
 		if (!lockY)
-			cameraPosition.y = player.getY() * 5 + 40;
+			cameraPosition.y = player.getPosition().y * 5 + 40;
 		
 		return cameraPosition;
 	}
@@ -100,7 +102,7 @@ public class FirstScreen implements Screen {
 		Pixmap pixmap = route01.getCollision().getTexture().getTextureData().consumePixmap();
 		
 		if (player.getWalkState() == Player.WalkState.LEFT) {
-			Color color = new Color(pixmap.getPixel(player.getX() + 8, route01.getImage().getRegionHeight() - player.getY()));
+			Color color = new Color(pixmap.getPixel(player.getBottomLeft().x + 16, route01.getImage().getRegionHeight() - player.getBottomLeft().x));
 			if ((int) (color.r*255) == (int) (collisionColor.r*255) && 
 					(int) (color.g*255) == (int) (collisionColor.g*255) && 
 					(int) (color.b*255) == (int) (collisionColor.b*255)) {

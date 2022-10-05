@@ -8,7 +8,7 @@ public class Background {
 	
 	private TextureRegion image;
 	private TextureRegion collision;
-	int width, height;
+	private int width, height;
 	
 	public Background(String filename, int x, int y, int width, int height) {
 		this.width = width;
@@ -25,12 +25,12 @@ public class Background {
 		return collision;
 	}
 	
-	public int getScaledWidth() {
-		return width * 5;
+	public int getWidth() {
+		return width;
 	}
 	
-	public int getScaledHeight() {
-		return height * 5;
+	public int getHeight() {
+		return height;
 	}
 
 }

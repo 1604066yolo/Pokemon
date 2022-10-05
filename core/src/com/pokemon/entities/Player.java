@@ -1,10 +1,10 @@
 package com.pokemon.entities;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.pokemon.tools.Position;
 
 public class Player implements Entity{
 	
@@ -25,9 +25,10 @@ public class Player implements Entity{
 	private Animation<TextureRegion> down;
 	private Animation<TextureRegion> still;
 	
-	private int x, y;
+	private Position position;
 	private WalkState walkState;
 	private TextureRegion currentWalkFrame;
+	private boolean canMove = true;
 	
 	public Player() {
 		TextureAtlas charset = new TextureAtlas(Gdx.files.internal("characters.atlas"));
@@ -47,17 +48,16 @@ public class Player implements Entity{
 		still = new Animation<TextureRegion>(ANIMATION_FRAME_TIME, charset.findRegions("still"));
 		still.setFrameDuration(ANIMATION_FRAME_TIME);
 		
-		this.x = 100;
-		this.y = 100;
+		position = new Position(100, 100);
 		this.walkState = WalkState.STILL;
 		this.currentWalkFrame = still.getKeyFrame(0, true);
 	}
 	
 	@Override
-	public void update(float elapsedTime, boolean movable) {
+	public void update(float elapsedTime) {
 		int velx = 0, vely = 0;
 		
-		if (!movable)
+		if (!canMove)
 			return;
 		
 		switch (walkState) {
@@ -81,8 +81,8 @@ public class Player implements Entity{
 				currentWalkFrame = still.getKeyFrame(elapsedTime, true);
 				break;
 		}
-		this.x += velx;
-		this.y += vely;
+		position.x += velx;
+		position.y += vely;
 	}
 	
 	public void setWalkState(WalkState walkState) {
@@ -93,21 +93,32 @@ public class Player implements Entity{
 		return currentWalkFrame;
 	}
 	
-	public int getX() {
-		return this.x;
-	}
-	
-	public int getY() {
-		return this.y;
+	public Position getPosition() {
+		return this.position;
 	}
 	
 	public WalkState getWalkState() {
 		return walkState;
 	}
-
-	@Override
-	public void update(float elapsedTime) {
-		
+	
+	public void setCanMove(boolean canMove) {
+		this.canMove = canMove;
+	}
+	
+	public Position getTopLeft() {
+		return new Position(position.x, position.y + 15);
+	}
+	
+	public Position getBottomLeft() {
+		return position;
+	}
+	
+	public Position getTopRight() {
+		 return new Position(position.x + 15, position.y + 15);
+	}
+	
+	public Position getBottomRight() {
+		return new Position(position.x + 15, position.y); 
 	}
 	
 }

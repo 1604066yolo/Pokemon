@@ -49,12 +49,5 @@ public class Trainer implements Entity{
 	public int getY() {
 		return y;
 	}
-
-	@Override
-	public void update(float elapsedTime, boolean movable) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	
 }
