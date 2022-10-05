@@ -34,7 +34,6 @@ public class Trainer implements Entity{
 	
 	public void update(float elapsedTime) {
 		Player player = PokemonMain.getPlayer();	
-		int x=2;
 	}
 
 	
