@@ -5,7 +5,7 @@ import java.util.List;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.pokemon.PokemonMain;
 
-public abstract class Trainer implements Entity{
+public class Trainer implements Entity{
 	private List<Pokemon> trainersPokemon;
 	private String name;
 	private TextureRegion trainerInMap;
@@ -32,7 +32,12 @@ public abstract class Trainer implements Entity{
 	}
 	
 	public void update(float elapsedTime) {
-		Player player= PokemonMain.getPlayer();
+		Player player = PokemonMain.getPlayer();	
+	}
+
+	@Override
+	public void update(float elapsedTime, boolean movable) {
+		// TODO Auto-generated method stub
 		
 	}
 
