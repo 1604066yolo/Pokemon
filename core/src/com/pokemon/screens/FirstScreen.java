@@ -62,11 +62,12 @@ public class FirstScreen implements Screen {
 		
 		player.setCanMove(calculatePlayerCollision());
 		player.update(elapsedTime);
+		trainer.update(elapsedTime);
 		TextureRegion currentPlayerFrame = player.getCurrentWalkFrame();
 		
 		camera.position.set(calculatePlayerCameraPosition(camera, route01));
 		
-		System.out.println("X: " + player.getPosition().x + "   Y: " + player.getPosition().y);
+		//System.out.println("X: " + player.getPosition().x + "   Y: " + player.getPosition().y);
 		
 		batch.begin();
 		

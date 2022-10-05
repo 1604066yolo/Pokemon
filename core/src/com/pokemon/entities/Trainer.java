@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.pokemon.PokemonMain;
+import com.pokemon.tools.Position;
 
 public class Trainer implements Entity{
 	private List<Pokemon> trainersPokemon;
@@ -12,6 +13,7 @@ public class Trainer implements Entity{
 	private TextureRegion trainerInBattle;
 	private int x;
 	private int y;
+	private Position p;
 	
 	public Trainer(String name, List<Pokemon> trainersPokemon, TextureRegion trainerInMap,
 			TextureRegion trainerInBattle, int x, int y) {
@@ -19,8 +21,7 @@ public class Trainer implements Entity{
 		this.trainersPokemon= trainersPokemon;
 		this.trainerInBattle= trainerInBattle;
 		this.trainerInMap= trainerInMap;
-		this.x= x;
-		this.y= y;
+		this.p= new Position(x, y);
 		
 	}
 	
@@ -33,7 +34,10 @@ public class Trainer implements Entity{
 	}
 	
 	public void update(float elapsedTime) {
-		Player player = PokemonMain.getPlayer();	
+		Player player = PokemonMain.getPlayer();
+		if (p.distance(player.getPosition().x, player.getPosition().y)<16) {
+			System.out.println("Reached near trainer");
+		}
 	}
 
 	
@@ -42,11 +46,11 @@ public class Trainer implements Entity{
 	}
 	
 	public int getX() {
-		return x;
+		return p.x;
 	}
 	
 	public int getY() {
-		return y;
+		return p.y;
 	}
 	
 }
