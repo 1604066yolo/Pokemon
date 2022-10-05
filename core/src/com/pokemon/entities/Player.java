@@ -1,12 +1,9 @@
 package com.pokemon.entities;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.pokemon.tools.Background;
 import com.pokemon.tools.Position;
 
 public class Player implements Entity{
@@ -31,6 +28,7 @@ public class Player implements Entity{
 	private Position position;
 	private WalkState walkState;
 	private TextureRegion currentWalkFrame;
+	private boolean canMove = true;
 	
 	public Player() {
 		TextureAtlas charset = new TextureAtlas(Gdx.files.internal("characters.atlas"));
@@ -56,10 +54,10 @@ public class Player implements Entity{
 	}
 	
 	@Override
-	public void update(float elapsedTime, boolean movable) {
+	public void update(float elapsedTime) {
 		int velx = 0, vely = 0;
 		
-		if (!movable)
+		if (!canMove)
 			return;
 		
 		switch (walkState) {
@@ -102,26 +100,25 @@ public class Player implements Entity{
 	public WalkState getWalkState() {
 		return walkState;
 	}
-
-	@Override
-	public void update(float elapsedTime) {
-		
+	
+	public void setCanMove(boolean canMove) {
+		this.canMove = canMove;
 	}
 	
 	public Position getTopLeft() {
-		return null; 
+		return new Position(position.x, position.y + 15);
 	}
 	
 	public Position getBottomLeft() {
-		return null; 
+		return position;
 	}
 	
 	public Position getTopRight() {
-		return null; 
+		 return new Position(position.x + 15, position.y + 15);
 	}
 	
 	public Position getBottomRight() {
-		return null; 
+		return new Position(position.x + 15, position.y); 
 	}
 	
 }

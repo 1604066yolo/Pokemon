@@ -34,12 +34,5 @@ public class Trainer implements Entity{
 	public void update(float elapsedTime) {
 		Player player = PokemonMain.getPlayer();	
 	}
-
-	@Override
-	public void update(float elapsedTime, boolean movable) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	
 }
