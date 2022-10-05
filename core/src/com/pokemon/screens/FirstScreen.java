@@ -67,12 +67,6 @@ public class FirstScreen implements Screen {
 		
 		camera.position.set(calculatePlayerCameraPosition(camera, route01));
 		
-<<<<<<< HEAD
-		// System.out.println("X: " + player.getPosition().x + "   Y: " + player.getPosition().y);
-=======
-		//System.out.println("X: " + player.getPosition().x + "   Y: " + player.getPosition().y);
->>>>>>> branch 'master' of https://github.com/1604066yolo/Pokemon.git
-		
 		batch.begin();
 		
 		
