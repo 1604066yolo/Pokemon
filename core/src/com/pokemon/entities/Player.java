@@ -17,7 +17,7 @@ public class Player implements Entity{
 	}
 	
 	private static final float ANIMATION_FRAME_TIME = 1 / 4f;
-	private static final int PLAYER_SPEED = 10;
+	private static final int PLAYER_SPEED = 2;
 	
 	private Animation<TextureRegion> left;
 	private Animation<TextureRegion> right;

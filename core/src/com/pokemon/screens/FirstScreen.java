@@ -63,7 +63,7 @@ public class FirstScreen implements Screen {
 		
 		
 		batch.draw(route01.getImage(), 0, 0, route01.getScaledWidth(), route01.getScaledHeight());
-		batch.draw(currentPlayerFrame, player.getX(), player.getY(), 
+		batch.draw(currentPlayerFrame, player.getX() * 5, player.getY() * 5, 
 				currentPlayerFrame.getRegionWidth() * 5f, currentPlayerFrame.getRegionHeight() * 5f);
 		
 		batch.end();
@@ -73,31 +73,41 @@ public class FirstScreen implements Screen {
 	private Vector3 calculatePlayerCameraPosition(OrthographicCamera camera, Background bg) {
 		Vector3 cameraPosition = camera.position;
 		boolean lockX = false, lockY = false;
-		if (player.getX() < 360 || player.getX() + 440 > bg.getScaledWidth())
+		if (player.getX() * 5 < 360 || player.getX() * 5 + 440 > bg.getScaledWidth())
 			lockX = true;
-		if (player.getY() < 320 || player.getY() + 400 > bg.getScaledHeight())
+		if (player.getY() * 5 < 320 || player.getY() * 5 + 400 > bg.getScaledHeight())
 			lockY = true;
 		
 		if (!lockX)
-			cameraPosition.x = player.getX() + 40;
+			cameraPosition.x = player.getX() * 5 + 40;
 		if (!lockY)
-			cameraPosition.y = player.getY() + 40;
+			cameraPosition.y = player.getY() * 5 + 40;
 		
 		return cameraPosition;
 	}
 	
 	private boolean calculatePlayerCollision() {
+		if (!route01.getCollision().getTexture().getTextureData().isPrepared())
+			route01.getCollision().getTexture().getTextureData().prepare();
+		Pixmap pixmap = route01.getCollision().getTexture().getTextureData().consumePixmap();
+		
 		if (player.getWalkState() == Player.WalkState.LEFT) {
-			if (!route01.getCollision().getTexture().getTextureData().isPrepared())
-				route01.getCollision().getTexture().getTextureData().prepare();
-			Pixmap pixmap = route01.getCollision().getTexture().getTextureData().consumePixmap();
-			Color color = new Color(pixmap.getPixel(player.getX() / 5 + 8, route01.getImage().getRegionHeight() - player.getY() / 5));
+			Color color = new Color(pixmap.getPixel(player.getX() + 8, route01.getImage().getRegionHeight() - player.getY()));
 			if ((int) (color.r*255) == (int) (collisionColor.r*255) && 
 					(int) (color.g*255) == (int) (collisionColor.g*255) && 
 					(int) (color.b*255) == (int) (collisionColor.b*255)) {
 				return false;
 			}
 		}
+		
+		/*if (player.getWalkState() == Player.WalkState.RIGHT) {
+			Color color = new Color(pixmap.getPixel(player.getX() / 5 + 8, route01.getImage().getRegionHeight() - player.getY() / 5));
+			if ((int) (color.r*255) == (int) (collisionColor.r*255) && 
+					(int) (color.g*255) == (int) (collisionColor.g*255) && 
+					(int) (color.b*255) == (int) (collisionColor.b*255)) {
+				return false;
+			}
+		}*/
 		
 		return true;
 	}
