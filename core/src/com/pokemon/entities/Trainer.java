@@ -35,8 +35,9 @@ public class Trainer implements Entity{
 	
 	public void update(float elapsedTime) {
 		Player player = PokemonMain.getPlayer();
-		if (p.distance(player.getPosition().x, player.getPosition().y)<16) {
-			System.out.println("Reached near trainer");
+		if (p.distance(player.getPosition().x, player.getPosition().y)<25) {
+			player.setWalkState(Player.WalkState.STILL);
+			PokemonMain.setScreen(PokemonMain.ScreenType.DialougeBox);
 		}
 	}
 

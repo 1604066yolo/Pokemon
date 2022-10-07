@@ -53,7 +53,6 @@ public class FirstScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 		
 		elapsedTime += delta;
@@ -66,6 +65,7 @@ public class FirstScreen implements Screen {
 		TextureRegion currentPlayerFrame = player.getCurrentWalkFrame();
 		
 		camera.position.set(calculatePlayerCameraPosition(camera, route01));
+		camera.update();
 		
 		batch.begin();
 		

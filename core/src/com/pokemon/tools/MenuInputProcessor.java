@@ -3,6 +3,7 @@ package com.pokemon.tools;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.pokemon.PokemonMain;
+import com.pokemon.entities.Player;
 import com.pokemon.screens.MenuScreen;
 
 public class MenuInputProcessor implements InputProcessor {
@@ -15,6 +16,7 @@ public class MenuInputProcessor implements InputProcessor {
 	
 	@Override
 	public boolean keyDown(int keycode) {
+		PokemonMain.getPlayer().setWalkState(Player.WalkState.STILL);
 		if (keycode == Input.Keys.UP) {
 			menu.navigateUp();
 			return true;
