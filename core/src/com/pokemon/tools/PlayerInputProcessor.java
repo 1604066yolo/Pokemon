@@ -33,6 +33,7 @@ public class PlayerInputProcessor implements InputProcessor {
 		}
 		
 		if (keycode == Input.Keys.I) {
+			player.setWalkState(Player.WalkState.STILL);
 			PokemonMain.setScreen(PokemonMain.ScreenType.MainMenu);
 			return true;
 		}
