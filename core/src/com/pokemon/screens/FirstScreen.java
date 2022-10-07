@@ -19,6 +19,7 @@ import com.pokemon.entities.Pokemon;
 import com.pokemon.entities.Trainer;
 import com.pokemon.tools.Background;
 import com.pokemon.tools.PlayerInputProcessor;
+import com.pokemon.tools.Position;
 
 public class FirstScreen implements Screen {
 	
@@ -53,19 +54,19 @@ public class FirstScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 		
 		elapsedTime += delta;
 		Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		player.setCanMove(calculatePlayerCollision());
+		player.setCanMove(!calculatePlayerCollision());
 		player.update(elapsedTime);
 		trainer.update(elapsedTime);
 		TextureRegion currentPlayerFrame = player.getCurrentWalkFrame();
 		
 		camera.position.set(calculatePlayerCameraPosition(camera, route01));
+		camera.update();
 		
 		batch.begin();
 		
@@ -99,36 +100,39 @@ public class FirstScreen implements Screen {
 		if (!route01.getCollision().getTexture().getTextureData().isPrepared())
 			route01.getCollision().getTexture().getTextureData().prepare();
 		Pixmap pixmap = route01.getCollision().getTexture().getTextureData().consumePixmap();
-		Color color1, color2;
-		if (player.getWalkState() == Player.WalkState.LEFT) {
-			color1 = new Color(pixmap.getPixel(player.getBottomLeft().x + 8, route01.getImage().getRegionHeight() - player.getBottomLeft().y + 22));
-			color2 = new Color(pixmap.getPixel(player.getTopLeft().x + 8, route01.getImage().getRegionHeight() - player.getTopLeft().y + 22));
-		}
-		else if (player.getWalkState() == Player.WalkState.RIGHT) {
-			color1 = new Color(pixmap.getPixel(player.getBottomRight().x + 8, route01.getImage().getRegionHeight() - player.getBottomRight().y + 22));
-			color2 = new Color(pixmap.getPixel(player.getTopRight().x + 8, route01.getImage().getRegionHeight() - player.getTopRight().y + 22));
-		}
-		else if (player.getWalkState() == Player.WalkState.UP) {
-			color1 = new Color(pixmap.getPixel(player.getTopRight().x + 8, route01.getImage().getRegionHeight() - player.getTopRight().y + 22));
-			color2 = new Color(pixmap.getPixel(player.getTopLeft().x + 8, route01.getImage().getRegionHeight() - player.getTopLeft().y + 22));
-		}
-		else if (player.getWalkState() == Player.WalkState.DOWN) {
-			color1 = new Color(pixmap.getPixel(player.getBottomRight().x + 8, route01.getImage().getRegionHeight() - player.getBottomRight().y + 22));
-			color2 = new Color(pixmap.getPixel(player.getBottomLeft().x + 8, route01.getImage().getRegionHeight() - player.getBottomLeft().y + 22));
-		}
-		else
-			return true;
-		
-		if ((int) (color1.r*255) == (int) (collisionColor.r*255) && 
-				(int) (color1.g*255) == (int) (collisionColor.g*255) && 
-				(int) (color1.b*255) == (int) (collisionColor.b*255) ||
-				(int) (color2.r*255) == (int) (collisionColor.r*255) && 
-				(int) (color2.g*255) == (int) (collisionColor.g*255) && 
-				(int) (color2.b*255) == (int) (collisionColor.b*255)) {
-			return false;
+		List<Position> pixels;
+		switch(player.getWalkState()) {
+			case LEFT:
+				pixels = player.getLeftSide();
+				break;
+			case RIGHT:
+				pixels = player.getRightSide();
+				break;
+			case UP:
+				pixels = player.getTopSide();
+				break;
+			case DOWN:
+				pixels = player.getBottomSide();
+				break;
+			default:
+				return false;
 		}
 		
-		return true;
+		System.out.println("player.x " + player.getPosition().x + "   player.y " + player.getPosition().y);
+		System.out.println("pixel.x " + pixels.get(0).x + "   pixel.y " + pixels.get(0).y);
+		
+		for (int i = 0; i < 16; i++) {
+			int x = pixels.get(i).x + 8;
+			int y = -pixels.get(i).y + 598;
+			Color c = new Color(pixmap.getPixel(x, y));
+			if (c.r == collisionColor.r && c.g == collisionColor.g && c.b == collisionColor.b) {
+				System.out.println(i);
+				System.out.println("pixel.x " + pixels.get(i).x + "   pixel.y " + pixels.get(i).y);
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	@Override

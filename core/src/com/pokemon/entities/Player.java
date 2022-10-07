@@ -1,5 +1,8 @@
 package com.pokemon.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -24,6 +27,11 @@ public class Player implements Entity{
 	private Animation<TextureRegion> up;
 	private Animation<TextureRegion> down;
 	private Animation<TextureRegion> still;
+	
+	private List<Position> leftSide;
+	private List<Position> rightSide;
+	private List<Position> topSide;
+	private List<Position> bottomSide;
 	
 	private Position position;
 	private WalkState walkState;
@@ -51,6 +59,17 @@ public class Player implements Entity{
 		position = new Position(100, 100);
 		this.walkState = WalkState.STILL;
 		this.currentWalkFrame = still.getKeyFrame(0, true);
+		
+		this.leftSide = new ArrayList<Position>(16);
+		this.rightSide = new ArrayList<Position>(16);
+		this.topSide = new ArrayList<Position>(16);
+		this.bottomSide = new ArrayList<Position>(16);
+		for(int i = 0; i < 16; i++) {
+			leftSide.add(new Position(position.x, position.y));
+			rightSide.add(new Position(position.x, position.y));
+			topSide.add(new Position(position.x, position.y));
+			bottomSide.add(new Position(position.x, position.y));
+		}
 	}
 	
 	@Override
@@ -58,7 +77,7 @@ public class Player implements Entity{
 		int velx = 0, vely = 0;
 		
 		if (!canMove)
-			return;
+			walkState = WalkState.STILL;
 		
 		switch (walkState) {
 			case LEFT:
@@ -81,8 +100,16 @@ public class Player implements Entity{
 				currentWalkFrame = still.getKeyFrame(elapsedTime, true);
 				break;
 		}
+		
 		position.x += velx;
 		position.y += vely;
+		
+		for(int i = 0; i < 16; i++) {
+			leftSide.get(i).setXY(position.x - 1, position.y + i);
+			rightSide.get(i).setXY(position.x + 15 + 1, position.y + i);
+			topSide.get(i).setXY(position.x + i, position.y + 15 + 1);
+			bottomSide.get(i).setXY(position.x + i, position.y - 1);
+		}
 	}
 	
 	public void setWalkState(WalkState walkState) {
@@ -105,20 +132,19 @@ public class Player implements Entity{
 		this.canMove = canMove;
 	}
 	
-	public Position getTopLeft() {
-		return new Position(position.x, position.y + 15);
+	public List<Position> getLeftSide() {
+		return leftSide;
 	}
 	
-	public Position getBottomLeft() {
-		return position;
+	public List<Position> getRightSide() {
+		return rightSide;
 	}
 	
-	public Position getTopRight() {
-		 return new Position(position.x + 15, position.y + 15);
+	public List<Position> getTopSide() {
+		return topSide;
 	}
 	
-	public Position getBottomRight() {
-		return new Position(position.x + 15, position.y); 
+	public List<Position> getBottomSide() {
+		return bottomSide;
 	}
-	
 }

@@ -87,8 +87,7 @@ public class MainMenuScreen implements MenuScreen {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		
+		batch.dispose();
 	}
 
 	@Override
