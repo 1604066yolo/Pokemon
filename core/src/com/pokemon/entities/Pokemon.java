@@ -1,9 +1,15 @@
 package com.pokemon.entities;
 
 public class Pokemon {
-	private String pokemonName;
+	
+	private String name;
 	
 	public Pokemon(String name) {
-		pokemonName= name;
+		this.name = name;
 	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
 }

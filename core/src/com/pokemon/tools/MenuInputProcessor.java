@@ -4,19 +4,23 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.pokemon.PokemonMain;
 import com.pokemon.entities.Player;
+import com.pokemon.screens.FirstScreen;
 import com.pokemon.screens.MenuScreen;
 
 public class MenuInputProcessor implements InputProcessor {
 
+	private final PokemonMain _game;
+	
 	private MenuScreen menu;
 	
-	public MenuInputProcessor(MenuScreen menu) {
+	public MenuInputProcessor(PokemonMain _game, MenuScreen menu) {
+		this._game = _game;
 		this.menu = menu;
 	}
 	
 	@Override
 	public boolean keyDown(int keycode) {
-		PokemonMain.getPlayer().setWalkState(Player.WalkState.STILL);
+		_game.player.setWalkState(Player.WalkState.STILL);
 		if (keycode == Input.Keys.UP) {
 			menu.navigateUp();
 			return true;
@@ -31,7 +35,7 @@ public class MenuInputProcessor implements InputProcessor {
 		}
 		
 		if (keycode == Input.Keys.I) {
-			PokemonMain.setScreen(PokemonMain.ScreenType.MainGame);
+			_game.setScreen(new FirstScreen(_game));
 			return true;
 		}
 		return false;
@@ -44,37 +48,31 @@ public class MenuInputProcessor implements InputProcessor {
 
 	@Override
 	public boolean keyTyped(char character) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean scrolled(float amountX, float amountY) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

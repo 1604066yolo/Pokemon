@@ -4,37 +4,36 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.pokemon.PokemonMain;
 import com.pokemon.entities.Player;
+import com.pokemon.screens.MainMenuScreen;
 
 public class PlayerInputProcessor implements InputProcessor {
 
-	private Player player;
+	private final PokemonMain _game;
 	
-	public PlayerInputProcessor(Player player) {
-		this.player = player;
+	public PlayerInputProcessor(PokemonMain _game) {
+		this._game = _game;
 	}
 	
 	@Override
 	public boolean keyDown(int keycode) {
 		if (keycode == Input.Keys.A) {
-			player.setWalkState(Player.WalkState.LEFT);
+			_game.player.setWalkState(Player.WalkState.LEFT);
 			return true;
 		}
 		else if (keycode == Input.Keys.D) {
-			player.setWalkState(Player.WalkState.RIGHT);
+			_game.player.setWalkState(Player.WalkState.RIGHT);
 			return true;
 		}
 		else if (keycode == Input.Keys.W) {
-			player.setWalkState(Player.WalkState.UP);
+			_game.player.setWalkState(Player.WalkState.UP);
 			return true;
 		}
 		else if (keycode == Input.Keys.S) {
-			player.setWalkState(Player.WalkState.DOWN);
+			_game.player.setWalkState(Player.WalkState.DOWN);
 			return true;
 		}
-		
-		if (keycode == Input.Keys.I) {
-			player.setWalkState(Player.WalkState.STILL);
-			PokemonMain.setScreen(PokemonMain.ScreenType.MainMenu);
+		else if (keycode == Input.Keys.I) {
+			_game.setScreen(new MainMenuScreen(_game));
 			return true;
 		}
 		return false;
@@ -43,7 +42,7 @@ public class PlayerInputProcessor implements InputProcessor {
 	@Override
 	public boolean keyUp(int keycode) {
 		if (keycode == Input.Keys.A || keycode == Input.Keys.D || keycode == Input.Keys.W || keycode == Input.Keys.S) {
-			player.setWalkState(Player.WalkState.STILL);
+			_game.player.setWalkState(Player.WalkState.STILL);
 			return true;
 		}
 		return false;

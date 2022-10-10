@@ -20,7 +20,7 @@ public class Player implements Entity{
 	}
 	
 	private static final float ANIMATION_FRAME_TIME = 1 / 4f;
-	private static final int PLAYER_SPEED = 2;
+	private static final int PLAYER_SPEED = 1;
 	
 	private Animation<TextureRegion> left;
 	private Animation<TextureRegion> right;
@@ -120,6 +120,12 @@ public class Player implements Entity{
 		return currentWalkFrame;
 	}
 	
+	public void resetPlayer() {
+		currentWalkFrame = down.getKeyFrame(0);
+		canMove = true;
+		
+	}
+	
 	public Position getPosition() {
 		return this.position;
 	}
@@ -147,4 +153,5 @@ public class Player implements Entity{
 	public List<Position> getBottomSide() {
 		return bottomSide;
 	}
+	
 }

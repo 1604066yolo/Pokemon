@@ -1,9 +1,10 @@
 package com.pokemon.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.pokemon.PokemonMain;
 import com.pokemon.tools.MenuInputProcessor;
 
 public class MainMenuScreen implements MenuScreen {
@@ -29,21 +30,27 @@ public class MainMenuScreen implements MenuScreen {
 		}
 	}
 	
-	private SpriteBatch batch;
+	private final PokemonMain _game;
+	
+	private OrthographicCamera camera;
 	private TextureRegion selectionIconFilled;
 	private TextureRegion mainMenu;
 	private MainMenuOption currentOption;
 	
 	private static MenuInputProcessor menuInputProcessor;
 	
-	public MainMenuScreen() {
-		this.batch = new SpriteBatch();
+	public MainMenuScreen(PokemonMain _game) {
+		this._game = _game;
+		
+		this.camera = new OrthographicCamera();
+		camera.setToOrtho(false, 800, 720);
+		
 		this.selectionIconFilled = new TextureRegion(new Texture(Gdx.files.internal("menus.png")), 650, 195, 8, 8);
 		this.mainMenu = new TextureRegion(new Texture(Gdx.files.internal("menus.png")), 164, 10, 160, 144);
 		
 		this.currentOption = MainMenuOption.POKEDEX;
 		
-		menuInputProcessor = new MenuInputProcessor(this);
+		menuInputProcessor = new MenuInputProcessor(_game, this);
 	}
 	
 	@Override
@@ -53,13 +60,15 @@ public class MainMenuScreen implements MenuScreen {
 
 	@Override
 	public void render(float delta) {
-		batch.begin();
+		_game.batch.setProjectionMatrix(camera.combined);
 		
-		batch.draw(mainMenu, 0, 0, mainMenu.getRegionWidth() * 5, mainMenu.getRegionHeight() * 5);
-		batch.draw(selectionIconFilled, 88 * 5, 120 * 5 - currentOption.ordinal() * 80, 
+		_game.batch.begin();
+		
+		_game.batch.draw(mainMenu, 0, 0, mainMenu.getRegionWidth() * 5, mainMenu.getRegionHeight() * 5);
+		_game.batch.draw(selectionIconFilled, 88 * 5, 120 * 5 - currentOption.ordinal() * 80, 
 				selectionIconFilled.getRegionWidth() * 5, selectionIconFilled.getRegionHeight() * 5);
 		
-		batch.end();
+		_game.batch.end();
 	}
 
 	@Override
@@ -69,25 +78,22 @@ public class MainMenuScreen implements MenuScreen {
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void dispose() {
-		batch.dispose();
+		
 	}
 
 	@Override

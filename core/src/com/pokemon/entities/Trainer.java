@@ -4,54 +4,54 @@ import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.pokemon.PokemonMain;
+import com.pokemon.screens.DialogueScreen;
 import com.pokemon.tools.Position;
 
-public class Trainer implements Entity{
-	private List<Pokemon> trainersPokemon;
-	private String name;
-	private TextureRegion trainerInMap;
-	private TextureRegion trainerInBattle;
-	private int x;
-	private int y;
-	private Position p;
+public class Trainer implements Entity {
 	
-	public Trainer(String name, List<Pokemon> trainersPokemon, TextureRegion trainerInMap,
-			TextureRegion trainerInBattle, int x, int y) {
-		this.name= name;
-		this.trainersPokemon= trainersPokemon;
-		this.trainerInBattle= trainerInBattle;
-		this.trainerInMap= trainerInMap;
-		this.p= new Position(x, y);
-		
+	private final PokemonMain _game;
+	
+	private List<Pokemon> pokemons;
+	private String name;
+	private TextureRegion mapImage;
+	private TextureRegion battleImage;
+	private Position position;
+	
+	public Trainer(PokemonMain _game, String name, List<Pokemon> pokemons, TextureRegion mapImage,
+			TextureRegion battleImage, Position position) {
+		this._game = _game;
+		this.name = name;
+		this.pokemons = pokemons;
+		this.mapImage = mapImage;
+		this.battleImage = battleImage;
+		this.position = position;
 	}
 	
-	public List<Pokemon> getTrainersPokemon() {
-		return trainersPokemon;
+	public void update(float elapsedTime) {
+		if (position.distanceTo(_game.player.getPosition()) < 25) {
+			_game.player.setWalkState(Player.WalkState.STILL);
+			_game.setScreen(new DialogueScreen(_game));
+		}
+	}
+	
+	public List<Pokemon> getPokemons() {
+		return pokemons;
 	}
 	
 	public String getName() {
 		return name;
 	}
-	
-	public void update(float elapsedTime) {
-		Player player = PokemonMain.getPlayer();
-		if (p.distance(player.getPosition().x, player.getPosition().y)<25) {
-			player.setWalkState(Player.WalkState.STILL);
-			PokemonMain.setScreen(PokemonMain.ScreenType.DialougeBox);
-		}
-	}
 
-	
-	public TextureRegion getTrainerImage() {
-		return trainerInMap;
+	public TextureRegion getMapImage() {
+		return mapImage;
 	}
 	
-	public int getX() {
-		return p.x;
+	public TextureRegion getBattleImage() {
+		return battleImage;
 	}
 	
-	public int getY() {
-		return p.y;
+	public Position getPosition() {
+		return position;
 	}
 	
 }
