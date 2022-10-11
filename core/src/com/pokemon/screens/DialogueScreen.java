@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.Align;
 import com.pokemon.PokemonMain;
 import com.pokemon.tools.MenuInputProcessor;
 
@@ -39,7 +38,7 @@ public class DialogueScreen implements IMenuScreen {
 		_game.batch.begin();
 		
 		_game.batch.draw(dialougeBox, 0, 0, dialougeBox.getRegionWidth() * 5, dialougeBox.getRegionHeight() * 5);
-		_game.font.draw(_game.batch, "HELLO", 20, 100);
+		_game.font.draw(_game.batch, "How are you", 20, 100);
 		
 		_game.batch.end();
 	}
@@ -92,6 +91,11 @@ public class DialogueScreen implements IMenuScreen {
 	@Override
 	public void select() {
 		
+	}
+
+	@Override
+	public IMenuScreen getLastScreen() {
+		return null;
 	}
 	
 }

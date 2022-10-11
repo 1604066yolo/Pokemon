@@ -11,31 +11,35 @@ public class MenuInputProcessor implements InputProcessor {
 
 	private final PokemonMain _game;
 	
-	private IMenuScreen menu;
+	private IMenuScreen _menu;
 	
-	public MenuInputProcessor(PokemonMain _game, IMenuScreen menu) {
+	public MenuInputProcessor(PokemonMain _game, IMenuScreen _menu) {
 		this._game = _game;
-		this.menu = menu;
+		this._menu = _menu;
 	}
 	
 	@Override
 	public boolean keyDown(int keycode) {
 		_game.player.setWalkState(Player.WalkState.STILL);
 		if (keycode == Input.Keys.UP) {
-			menu.navigateUp();
+			_menu.navigateUp();
 			return true;
 		}
 		else if (keycode == Input.Keys.DOWN) {
-			menu.navigateDown();
+			_menu.navigateDown();
 			return true;
 		}
 		else if (keycode == Input.Keys.ENTER) {
-			menu.select();
+			_menu.select();
 			return true;
 		}
-		
-		if (keycode == Input.Keys.I) {
+		else if (keycode == Input.Keys.I) {
 			_game.setScreen(new FirstScreen(_game));
+			return true;
+		}
+		else if (keycode == Input.Keys.BACKSPACE) {
+			if (_menu.getLastScreen() != null)
+				_game.setScreen(_menu.getLastScreen());
 			return true;
 		}
 		return false;

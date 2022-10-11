@@ -2,6 +2,7 @@ package com.pokemon.tools;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.pokemon.PokemonMain;
 import com.pokemon.entities.Player;
 import com.pokemon.screens.MainMenuScreen;
@@ -33,7 +34,9 @@ public class PlayerInputProcessor implements InputProcessor {
 			return true;
 		}
 		else if (keycode == Input.Keys.I) {
-			_game.setScreen(new MainMenuScreen(_game));
+			OrthographicCamera camera = new OrthographicCamera();
+			camera.setToOrtho(false, 800, 720);
+			_game.setScreen(new MainMenuScreen(_game, camera));
 			return true;
 		}
 		return false;
