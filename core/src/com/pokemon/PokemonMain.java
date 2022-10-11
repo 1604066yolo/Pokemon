@@ -3,6 +3,7 @@ package com.pokemon;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.pokemon.entities.Player;
@@ -15,6 +16,7 @@ public class PokemonMain extends Game {
 	public BitmapFont font;
 	public Player player;
 	public Screen lastScreen;
+	public Pixmap mainMenuBackgroundImage;
 	
 	@Override
 	public void create () {
@@ -36,10 +38,6 @@ public class PokemonMain extends Game {
 	public void dispose () {
 		batch.dispose();
 		font.dispose();
-	}
-	
-	public void storeLastScreen(Screen lastScreen) {
-		this.lastScreen = lastScreen;
 	}
 	
 }

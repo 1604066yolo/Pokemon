@@ -1,6 +1,7 @@
 package com.pokemon.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -76,7 +77,8 @@ public class PokemonSelectScreen implements IMenuScreen {
 
 	@Override
 	public void hide() {
-		
+//		Gdx.gl.glClearColor(0, 1, 0, 0);
+//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 	}
 
 	@Override
@@ -108,7 +110,13 @@ public class PokemonSelectScreen implements IMenuScreen {
 
 	@Override
 	public void select() {
-		
+		switch(currentOption) {
+			case CANCEL:
+				_game.setScreen(_game.lastScreen);
+				break;
+			default:
+				break;
+		}
 	}
 
 	@Override

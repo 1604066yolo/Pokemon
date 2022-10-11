@@ -33,6 +33,8 @@ public class Player implements Entity {
 	private List<Position> topSide;
 	private List<Position> bottomSide;
 	
+	private List<Pokemon> pokemons;
+	
 	private Position position;
 	private WalkState walkState;
 	private TextureRegion currentWalkFrame;
@@ -70,6 +72,8 @@ public class Player implements Entity {
 			topSide.add(new Position(position.x, position.y));
 			bottomSide.add(new Position(position.x, position.y));
 		}
+		
+		pokemons.add(new Pokemon("Bulbasaur", new Position(1, 18)));
 	}
 	
 	@Override

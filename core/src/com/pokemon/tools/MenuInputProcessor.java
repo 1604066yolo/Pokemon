@@ -37,11 +37,7 @@ public class MenuInputProcessor implements InputProcessor {
 			_game.setScreen(new FirstScreen(_game));
 			return true;
 		}
-		else if (keycode == Input.Keys.BACKSPACE) {
-			if (_menu.getLastScreen() != null)
-				_game.setScreen(_menu.getLastScreen());
-			return true;
-		}
+		
 		return false;
 	}
 

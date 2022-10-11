@@ -29,6 +29,7 @@ public class MainMenuScreen implements IMenuScreen {
 	private TextureRegion mainMenu;
 	private MainMenuOption currentOption;
 	private MenuInputProcessor menuInputProcessor;
+	private Texture backgroundImage;
 	
 	public MainMenuScreen(PokemonMain _game, OrthographicCamera _camera) {
 		this._game = _game;
@@ -40,6 +41,7 @@ public class MainMenuScreen implements IMenuScreen {
 		this.currentOption = MainMenuOption.POKEDEX;
 		
 		menuInputProcessor = new MenuInputProcessor(_game, this);
+		backgroundImage = new Texture(_game.mainMenuBackgroundImage);
 	}
 	
 	@Override
@@ -53,6 +55,8 @@ public class MainMenuScreen implements IMenuScreen {
 		
 		_game.batch.begin();
 		
+		_game.batch.draw(backgroundImage, 0, 200, backgroundImage.getWidth(), backgroundImage.getHeight(), 
+				0, 0, backgroundImage.getWidth(), backgroundImage.getHeight(), false, true);
 		_game.batch.draw(mainMenu, 0, 0, mainMenu.getRegionWidth() * 5, mainMenu.getRegionHeight() * 5);
 		_game.batch.draw(selectionIconFilled, 88 * 5, 120 * 5 - currentOption.ordinal() * 80, 
 				selectionIconFilled.getRegionWidth() * 5, selectionIconFilled.getRegionHeight() * 5);
@@ -111,6 +115,7 @@ public class MainMenuScreen implements IMenuScreen {
 	public void select() {
 		switch(currentOption) {
 			case POKEMON:
+				_game.lastScreen = this;
 				_game.setScreen(new PokemonSelectScreen(_game, _camera));
 				break;
 			default:

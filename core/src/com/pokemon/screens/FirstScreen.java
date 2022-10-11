@@ -50,7 +50,7 @@ public class FirstScreen implements Screen {
 		playerInputProcessor = new PlayerInputProcessor(_game);
 		
 		List<Pokemon> pokemons = new ArrayList<Pokemon>();
-		pokemons.add(new Pokemon("Pikachu"));
+		pokemons.add(new Pokemon("Pikachu", new Position(0, 0)));
 		trainer = new Trainer(_game, "Chinese Lady", pokemons, 
 				new TextureRegion(new Texture(Gdx.files.internal("characters.png")), 9, 136, 16, 16),
 				new TextureRegion(new Texture(Gdx.files.internal("characters.png")), 9, 136, 16, 16),
