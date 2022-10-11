@@ -5,15 +5,15 @@ import com.badlogic.gdx.InputProcessor;
 import com.pokemon.PokemonMain;
 import com.pokemon.entities.Player;
 import com.pokemon.screens.FirstScreen;
-import com.pokemon.screens.MenuScreen;
+import com.pokemon.screens.IMenuScreen;
 
 public class MenuInputProcessor implements InputProcessor {
 
 	private final PokemonMain _game;
 	
-	private MenuScreen menu;
+	private IMenuScreen menu;
 	
-	public MenuInputProcessor(PokemonMain _game, MenuScreen menu) {
+	public MenuInputProcessor(PokemonMain _game, IMenuScreen menu) {
 		this._game = _game;
 		this.menu = menu;
 	}

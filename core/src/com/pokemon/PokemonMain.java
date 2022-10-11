@@ -1,6 +1,7 @@
 package com.pokemon;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.pokemon.entities.Player;
@@ -16,7 +17,8 @@ public class PokemonMain extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		font = new BitmapFont();
+		font = new BitmapFont(Gdx.files.internal("pokefont.fnt"), Gdx.files.internal("pokefont.png"), false);
+		font.getData().setScale(5);
 		player = new Player();
 		
 		// default screen -> FirstScreen()

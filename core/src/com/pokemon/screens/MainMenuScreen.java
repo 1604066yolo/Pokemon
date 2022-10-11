@@ -7,9 +7,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.pokemon.PokemonMain;
 import com.pokemon.tools.MenuInputProcessor;
 
-public class MainMenuScreen implements MenuScreen {
+public class MainMenuScreen implements IMenuScreen {
 
-	public enum MainMenuOption implements MenuScreen.MenuOption {
+	public enum MainMenuOption implements IMenuScreen.IMenuOption {
 		POKEDEX,
 		POKEMON,
 		PACK,
@@ -19,9 +19,9 @@ public class MainMenuScreen implements MenuScreen {
 		OPTION,
 		EXIT;
 		
-		private static MenuOption[] options = MainMenuOption.values();
+		private static IMenuOption[] options = MainMenuOption.values();
 
-		public static MenuOption get(int i) {
+		public static IMenuOption get(int i) {
 			return options[i];
 		}
 
@@ -97,12 +97,12 @@ public class MainMenuScreen implements MenuScreen {
 	}
 
 	@Override
-	public MenuOption getCurrentMenuOption() {
+	public IMenuOption getCurrentMenuOption() {
 		return currentOption;
 	}
 
 	@Override
-	public void setCurrentMenuOption(MenuOption option) {
+	public void setCurrentMenuOption(IMenuOption option) {
 		this.currentOption = (MainMenuOption) option;
 	}
 

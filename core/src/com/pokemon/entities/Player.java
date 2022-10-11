@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.pokemon.tools.Position;
 
-public class Player implements Entity{
+public class Player implements Entity {
 	
 	public enum WalkState {
 		LEFT,
