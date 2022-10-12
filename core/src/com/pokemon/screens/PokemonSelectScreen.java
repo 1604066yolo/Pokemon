@@ -56,6 +56,20 @@ public class PokemonSelectScreen implements IMenuScreen {
 		_game.batch.draw(pokemonSelect, 0, 0, pokemonSelect.getRegionWidth() * 5, pokemonSelect.getRegionHeight() * 5);
 		_game.batch.draw(selectionIconFilled, 0 * 5, 128 * 5 - currentOption.ordinal() * 80, 
 				selectionIconFilled.getRegionWidth() * 5, selectionIconFilled.getRegionHeight() * 5);
+		for (int i = 0; i < _game.player.getPokemons().size(); i++) {
+			_game.batch.draw(_game.player.getPokemons().get(i).getInventoryImage(), 
+					currentOption.ordinal() == i ? 8 * 5 : 0, 720 - (20 + 16*i) * 5, 80, 80);
+			_game.font.draw(_game.batch, _game.player.getPokemons().get(i).getName(), 24 * 5, 720 - (8 + 16*i) * 5);
+			
+			// LEVEL
+			// x: 64 * 5
+			// y: 720 - (24 + 16*i) * 5
+			
+			// HP
+			// x: 104 * 5
+			// y: 720 - (16 + 16*i) * 5
+		}
+		
 		
 		_game.batch.end();
 	}

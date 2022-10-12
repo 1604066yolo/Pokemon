@@ -29,7 +29,7 @@ public class Trainer implements Entity {
 	
 	public void update(float elapsedTime) {
 		if (position.distanceTo(_game.player.getPosition()) < 25) {
-			_game.player.setWalkState(Player.WalkState.STILL);
+			_game.player.update(0);
 			_game.setScreen(new DialogueScreen(_game));
 		}
 	}

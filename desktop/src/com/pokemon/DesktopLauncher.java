@@ -12,6 +12,7 @@ public class DesktopLauncher {
 		config.setForegroundFPS(60);
 		config.setWindowedMode(800, 720);
 		config.useVsync(true);
+		config.setResizable(false);
 		new Lwjgl3Application(new PokemonMain(), config);
 	}
 }
