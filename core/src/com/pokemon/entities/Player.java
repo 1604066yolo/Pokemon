@@ -72,7 +72,7 @@ public class Player implements Entity {
 			topSide.add(new Position(position.x, position.y));
 			bottomSide.add(new Position(position.x, position.y));
 		}
-		
+		pokemons= new ArrayList<Pokemon>();
 		pokemons.add(new Pokemon("Bulbasaur", new Position(1, 18)));
 	}
 	
