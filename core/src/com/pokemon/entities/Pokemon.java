@@ -11,17 +11,26 @@ import com.pokemon.tools.Position;
 public class Pokemon {
 	
 	private String name;
-	private TextureRegion image;
+	private TextureRegion inventoryImage;
+	private TextureRegion battleImage;
 	private List<Move> moves;
 	
-	public Pokemon(String name, Position textureCoordinates) {
+	public Pokemon(String name, Position inventoryTextureCoordinates) {
 		this.name = name;
-		this.image = new TextureRegion(new Texture(Gdx.files.internal("pokemon.png")), 
-				textureCoordinates.x, textureCoordinates.y, 56, 56);
+		this.inventoryImage = new TextureRegion(new Texture(Gdx.files.internal("pokemon.png")), 
+				inventoryTextureCoordinates.x, inventoryTextureCoordinates.y, 16, 16);
 	}
 	
 	public String getName() {
-		return this.name;
+		return name;
+	}
+	
+	public TextureRegion getInventoryImage() {
+		return inventoryImage;
+	}
+	
+	public TextureRegion getBattleImage() {
+		return battleImage;
 	}
 	
 }
