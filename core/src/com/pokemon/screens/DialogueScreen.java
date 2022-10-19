@@ -68,15 +68,6 @@ public class DialogueScreen implements IMenuScreen {
 		
 	}
 
-	@Override
-	public IMenuOption getCurrentMenuOption() {
-		return null;
-	}
-
-	@Override
-	public void setCurrentMenuOption(IMenuOption option) {
-		
-	}
 
 	@Override
 	public void navigateUp() {

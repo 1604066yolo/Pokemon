@@ -42,6 +42,7 @@ public class Trainer implements Entity {
 		return name;
 	}
 
+	@Override
 	public TextureRegion getMapImage() {
 		return mapImage;
 	}

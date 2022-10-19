@@ -11,6 +11,8 @@ import com.pokemon.tools.Position;
 public class Pokemon {
 	
 	private String name;
+	private int HP;
+	private int level;
 	private TextureRegion inventoryImage;
 	private TextureRegion battleImage;
 	private List<Move> moves;
@@ -31,6 +33,14 @@ public class Pokemon {
 	
 	public TextureRegion getBattleImage() {
 		return battleImage;
+	}
+	
+	public int getHP() {
+		return HP;
+	}
+	
+	public int getLevel() {
+		return level;
 	}
 	
 }

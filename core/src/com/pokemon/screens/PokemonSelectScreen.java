@@ -1,17 +1,16 @@
 package com.pokemon.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.pokemon.PokemonMain;
-import com.pokemon.screens.MainMenuScreen.MainMenuOption;
 import com.pokemon.tools.MenuInputProcessor;
 
 public class PokemonSelectScreen implements IMenuScreen {
 	
-	public enum PokemonSelectOption implements IMenuScreen.IMenuOption {
+	public enum PokemonSelectOption {
 		SLOT1,
 		SLOT2,
 		SLOT3,
@@ -59,7 +58,10 @@ public class PokemonSelectScreen implements IMenuScreen {
 		for (int i = 0; i < _game.player.getPokemons().size(); i++) {
 			_game.batch.draw(_game.player.getPokemons().get(i).getInventoryImage(), 
 					currentOption.ordinal() == i ? 8 * 5 : 0, 720 - (20 + 16*i) * 5, 80, 80);
+			
 			_game.font.draw(_game.batch, _game.player.getPokemons().get(i).getName(), 24 * 5, 720 - (8 + 16*i) * 5);
+			_game.font.draw(_game.batch, Integer.toString(_game.player.getPokemons().get(i).getLevel()), 64 * 5, 720 - (16 + 16*i) * 5);
+			_game.font.draw(_game.batch, Integer.toString(_game.player.getPokemons().get(i).getHP()), 104 * 5, 720 - (8 + 16*i) * 5);
 			
 			// LEVEL
 			// x: 64 * 5
@@ -91,22 +93,11 @@ public class PokemonSelectScreen implements IMenuScreen {
 
 	@Override
 	public void hide() {
-//		Gdx.gl.glClearColor(0, 1, 0, 0);
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-	}
-
-	@Override
-	public void dispose() {
 		
 	}
 
 	@Override
-	public IMenuOption getCurrentMenuOption() {
-		return null;
-	}
-
-	@Override
-	public void setCurrentMenuOption(IMenuOption option) {
+	public void dispose() {
 		
 	}
 
@@ -134,8 +125,8 @@ public class PokemonSelectScreen implements IMenuScreen {
 	}
 
 	@Override
-	public IMenuScreen getLastScreen() {
-		return new MainMenuScreen(_game, _camera);
+	public Screen getLastScreen() {
+		return new GameScreen(_game);
 	}
 
 }

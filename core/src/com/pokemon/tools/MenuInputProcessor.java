@@ -4,7 +4,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.pokemon.PokemonMain;
 import com.pokemon.entities.Player;
-import com.pokemon.screens.FirstScreen;
+import com.pokemon.screens.GameScreen;
 import com.pokemon.screens.IMenuScreen;
 
 public class MenuInputProcessor implements InputProcessor {
@@ -33,10 +33,10 @@ public class MenuInputProcessor implements InputProcessor {
 			_menu.select();
 			return true;
 		}
-		else if (keycode == Input.Keys.I) {
-			_game.setScreen(new FirstScreen(_game));
-			return true;
-		}
+//		else if (keycode == Input.Keys.I) {
+//			_game.setScreen(new FirstScreen(_game));
+//			return true;
+//		}
 		
 		return false;
 	}

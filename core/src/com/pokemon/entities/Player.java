@@ -72,15 +72,12 @@ public class Player implements Entity {
 			topSide.add(new Position(position.x, position.y));
 			bottomSide.add(new Position(position.x, position.y));
 		}
-<<<<<<< HEAD
 		pokemons= new ArrayList<Pokemon>();
 		pokemons.add(new Pokemon("Bulbasaur", new Position(1, 18)));
-=======
 		
 		pokemons = new ArrayList<Pokemon>();
 		pokemons.add(new Pokemon("Bulbasaur", new Position(1140, 4735)));
 		pokemons.add(new Pokemon("Charmander", new Position(1191, 4735)));
->>>>>>> branch 'master' of https://github.com/1604066yolo/Pokemon.git
 	}
 	
 	@Override
@@ -127,10 +124,6 @@ public class Player implements Entity {
 		this.walkState = walkState;
 	}
 	
-	public TextureRegion getCurrentWalkFrame() {
-		return currentWalkFrame;
-	}
-	
 	public void resetPlayer() {
 		currentWalkFrame = down.getKeyFrame(0);
 		canMove = true;
@@ -167,6 +160,11 @@ public class Player implements Entity {
 	
 	public List<Pokemon> getPokemons() {
 		return pokemons;
+	}
+
+	@Override
+	public TextureRegion getMapImage() {
+		return currentWalkFrame;
 	}
 	
 }
