@@ -25,7 +25,8 @@ public class GameScreen extends ScreenAdapter {
 	
 	public enum GameState {
 		RUNNING,
-		PAUSED;
+		PAUSED,
+		DIALOGUE;
 	}
 	
 	public enum MainMenuOption {
@@ -44,7 +45,6 @@ public class GameScreen extends ScreenAdapter {
 	private GameState gameState;
 	private MainMenuOption currentOption;
 	private Background currentBackground;
-	private OrthographicCamera guiCamera;
 	private WorldRenderer worldRenderer;
 	private List<Entity> entities;
 	
@@ -57,11 +57,9 @@ public class GameScreen extends ScreenAdapter {
 		currentOption = MainMenuOption.POKEDEX;
 		currentBackground = Assets.route01;
 		
-		guiCamera = new OrthographicCamera();
-		guiCamera.setToOrtho(false, 800, 720);
 				
 		List<Pokemon> pokemons = new ArrayList<Pokemon>();
-		pokemons.add(new Pokemon("Pikachu", new Position(0, 0)));
+		pokemons.add(Assets.pikachu);
 		entities = new ArrayList<Entity>();
 		entities.add(new Trainer(_game, "Chinese Lady", pokemons, Assets.chineseLady_world, Assets.chineseLady_battle, new Position(200, 200)));
 		
@@ -77,6 +75,9 @@ public class GameScreen extends ScreenAdapter {
 				break;
 			case PAUSED:
 				updatePaused();
+				break;
+			case DIALOGUE:
+				_game.setScreen(new DialogueScreen(_game));
 				break;
 		}
 	}
@@ -108,6 +109,11 @@ public class GameScreen extends ScreenAdapter {
 		
 		for (Entity e : entities) {
 			e.update(elapsedTime);
+			
+			if (e instanceof Trainer && ((Trainer) e).isPlayerInRange()) {
+				gameState = GameState.DIALOGUE;
+				
+			}
 		}
 	}
 	
@@ -130,8 +136,8 @@ public class GameScreen extends ScreenAdapter {
 		
 		worldRenderer.render();
 		
-		guiCamera.update();
-		_game.batch.setProjectionMatrix(guiCamera.combined);
+		_game.guiCamera.update();
+		_game.batch.setProjectionMatrix(_game.guiCamera.combined);
 		_game.batch.enableBlending();
 		
 		_game.batch.begin();
@@ -143,13 +149,15 @@ public class GameScreen extends ScreenAdapter {
 			case PAUSED:
 				presentPaused();
 				break;
+			case DIALOGUE:
+				break;
 		}
 		
 		_game.batch.end();
 	}
 	
 	public void presentRunning() {
-		
+		return;
 	}
 	
 	public void presentPaused() {
@@ -221,7 +229,7 @@ public class GameScreen extends ScreenAdapter {
 		switch(currentOption) {
 			case POKEMON:
 				_game.lastScreen = this;
-				_game.setScreen(new PokemonSelectScreen(_game, guiCamera));
+				_game.setScreen(new PokemonSelectScreen(_game));
 				break;
 			default:
 				System.out.println("not implemented yet");

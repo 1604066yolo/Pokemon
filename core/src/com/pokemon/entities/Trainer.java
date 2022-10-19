@@ -10,28 +10,25 @@ import com.pokemon.tools.Position;
 public class Trainer implements Entity {
 	
 	private final PokemonMain _game;
+	private TextureRegion _mapImage;
+	private TextureRegion _battleImage;
 	
 	private List<Pokemon> pokemons;
 	private String name;
-	private TextureRegion mapImage;
-	private TextureRegion battleImage;
 	private Position position;
 	
-	public Trainer(PokemonMain _game, String name, List<Pokemon> pokemons, TextureRegion mapImage,
-			TextureRegion battleImage, Position position) {
+	public Trainer(PokemonMain _game, String name, List<Pokemon> pokemons, TextureRegion _mapImage,
+			TextureRegion _battleImage, Position position) {
 		this._game = _game;
 		this.name = name;
 		this.pokemons = pokemons;
-		this.mapImage = mapImage;
-		this.battleImage = battleImage;
+		this._mapImage = _mapImage;
+		this._battleImage = _battleImage;
 		this.position = position;
 	}
 	
 	public void update(float elapsedTime) {
-		if (position.distanceTo(_game.player.getPosition()) < 25) {
-			_game.player.update(0);
-			_game.setScreen(new DialogueScreen(_game));
-		}
+		
 	}
 	
 	public List<Pokemon> getPokemons() {
@@ -44,15 +41,19 @@ public class Trainer implements Entity {
 
 	@Override
 	public TextureRegion getMapImage() {
-		return mapImage;
+		return _mapImage;
 	}
 	
 	public TextureRegion getBattleImage() {
-		return battleImage;
+		return _battleImage;
 	}
 	
 	public Position getPosition() {
 		return position;
+	}
+	
+	public boolean isPlayerInRange() {
+		return position.distanceTo(_game.player.getPosition()) < 25;
 	}
 	
 }

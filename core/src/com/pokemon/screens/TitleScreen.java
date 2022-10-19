@@ -12,13 +12,8 @@ public class TitleScreen extends ScreenAdapter {
 
 	private final PokemonMain _game;
 	
-	private OrthographicCamera guiCamera;
-	
 	public TitleScreen(PokemonMain _game) {
 		this._game = _game;
-		
-		guiCamera = new OrthographicCamera();
-		guiCamera.setToOrtho(false, 800, 720);
 	}
 	
 	public void update() {
@@ -32,8 +27,8 @@ public class TitleScreen extends ScreenAdapter {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		guiCamera.update();
-		_game.batch.setProjectionMatrix(guiCamera.combined);
+		_game.guiCamera.update();
+		_game.batch.setProjectionMatrix(_game.guiCamera.combined);
 		
 		_game.batch.disableBlending();
 		
