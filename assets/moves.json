@@ -1,0 +1,14 @@
+[
+{
+	"name": "Absorb",
+	"description": "Restores the user's HP by 1/2 of the damage inflicted on the target",
+	"category": "SPECIAL",
+	"type": "GRASS"
+},
+{
+	"name": "Acid",
+	"description": "Has a ~10% chance to lower the target's Defense by 1 stage",
+	"category": "SPECIAL",
+	"type": "POISON"
+}
+]

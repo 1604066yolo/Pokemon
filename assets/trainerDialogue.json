@@ -1,0 +1,14 @@
+[
+{
+	"start": "I just lost, so Im trying to find more POKEMON. Wait! You look weak! Come on, lets battle!",
+	"classification": "YOUNGSTER JOEY",
+	"end": "Ugh. I dont have any more POKEMON.",
+	"after": "I have to have more POKEMON for battles. Im going to catch some more!"
+},
+{
+	"start": "",
+	"classification": "",
+	"end": "",
+	"after": ""
+}
+]

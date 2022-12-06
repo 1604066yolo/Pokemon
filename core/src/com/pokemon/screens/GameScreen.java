@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Vector3;
 import com.pokemon.PokemonMain;
+import com.pokemon.entities.EncounterableEntity;
 import com.pokemon.entities.Entity;
 import com.pokemon.entities.Player;
 import com.pokemon.entities.Pokemon;
@@ -47,6 +48,7 @@ public class GameScreen extends ScreenAdapter {
 	private Background currentBackground;
 	private WorldRenderer worldRenderer;
 	private List<Entity> entities;
+	private EncounterableEntity initiator;
 	
 	private float elapsedTime;
 	
@@ -60,8 +62,10 @@ public class GameScreen extends ScreenAdapter {
 				
 		List<Pokemon> pokemons = new ArrayList<Pokemon>();
 		pokemons.add(Assets.pikachu);
+		
+		Trainer youngsterjoey = new Trainer(_game, "YOUNGSTER JOEY", pokemons, Assets.youngsterjoey_world, Assets.youngsterjoey_battle, new Position(200, 200));
 		entities = new ArrayList<Entity>();
-		entities.add(new Trainer(_game, "Chinese Lady", pokemons, Assets.chineseLady_world, Assets.chineseLady_battle, new Position(200, 200)));
+		entities.add(youngsterjoey);
 		
 		worldRenderer = new WorldRenderer(_game, currentBackground, entities);
 	}
@@ -77,7 +81,7 @@ public class GameScreen extends ScreenAdapter {
 				updatePaused();
 				break;
 			case DIALOGUE:
-				_game.setScreen(new DialogueScreen(_game));
+				_game.setScreen(new DialogueScreen(_game, Assets.trainerDialogue.get("YOUNGSTER JOEY").start, initiator.getEncounterType(), initiator));
 				break;
 		}
 	}
@@ -112,7 +116,7 @@ public class GameScreen extends ScreenAdapter {
 			
 			if (e instanceof Trainer && ((Trainer) e).isPlayerInRange()) {
 				gameState = GameState.DIALOGUE;
-				
+				initiator =  (Trainer) e;
 			}
 		}
 	}

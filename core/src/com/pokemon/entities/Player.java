@@ -28,6 +28,7 @@ public class Player implements Entity {
 	private List<Position> bottomSide;
 	
 	private List<Pokemon> pokemons;
+	private List<Pokemon> team;
 	
 	private Position position;
 	private WalkState walkState;
@@ -52,8 +53,10 @@ public class Player implements Entity {
 		}
 		
 		pokemons = new ArrayList<Pokemon>();
+		team = new ArrayList<Pokemon>();
 		pokemons.add(Assets.bulbasaur);
 		pokemons.add(Assets.charmander);
+		team.add(Assets.bulbasaur);
 	}
 	
 	@Override
@@ -131,10 +134,24 @@ public class Player implements Entity {
 	public List<Pokemon> getPokemons() {
 		return pokemons;
 	}
+	
+	public List<Pokemon> getTeam() {
+		return team;
+	}
 
 	@Override
 	public TextureRegion getMapImage() {
 		return currentWalkFrame;
+	}
+	
+	@Override
+	public TextureRegion getBattleImage() {
+		return Assets.playerBattle;
+	}
+	
+	@Override
+	public String getDisplayName() {
+		return "Player 1";
 	}
 	
 }

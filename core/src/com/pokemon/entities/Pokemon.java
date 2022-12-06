@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.pokemon.objects.Move;
+import com.pokemon.tools.Assets;
 import com.pokemon.tools.Position;
 
 public class Pokemon {
@@ -15,12 +16,14 @@ public class Pokemon {
 	private int level;
 	private TextureRegion inventoryImage;
 	private TextureRegion battleImage;
+	private TextureRegion backBattleImage;
 	private List<Move> moves;
 	
-	public Pokemon(String name, Position inventoryTextureCoordinates) {
+	public Pokemon(String name, Position inventoryXY, Position battleXY, Position backBattleXY) {
 		this.name = name;
-		this.inventoryImage = new TextureRegion(new Texture(Gdx.files.internal("pokemon.png")), 
-				inventoryTextureCoordinates.x, inventoryTextureCoordinates.y, 16, 16);
+		this.inventoryImage = new TextureRegion(Assets.pokemons, inventoryXY.x, inventoryXY.y, 16, 16);
+		this.battleImage = new TextureRegion(Assets.pokemons, battleXY.x, battleXY.y, 56, 56);
+		this.backBattleImage = new TextureRegion(Assets.pokemons, backBattleXY.x, backBattleXY.y, 48, 48);
 	}
 	
 	public String getName() {
@@ -33,6 +36,10 @@ public class Pokemon {
 	
 	public TextureRegion getBattleImage() {
 		return battleImage;
+	}
+	
+	public TextureRegion getBackBattleImage() {
+		return backBattleImage;
 	}
 	
 	public int getHP() {
